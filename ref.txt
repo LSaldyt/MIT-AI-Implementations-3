@@ -1,0 +1,9 @@
+dashboard has speedometer.
+dashboard has odometer.
+speedometer displays speed.
+speedometer is-next-to odometer.
+odometer displays mileage.
+compass displays direction.
+compass has needle.
+compass-needle points direction.
+hiking requires direction.

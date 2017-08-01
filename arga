@@ -1,0 +1,10 @@
+#!/usr/bin/env python3
+from concept_map import ConceptMap
+
+def main():
+    cmap = ConceptMap('test.json')
+    print(cmap)
+    #print(cmap.relations('speedometer', 'odometer'))
+
+if __name__ == '__main__':
+    main()

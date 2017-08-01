@@ -1,0 +1,1 @@
+{"dashboard": {"has": ["speedometer", "odometer"]}, "compass": {"displays": "direction"}, "hiking": {"requires": "direction"}, "odometer": {"displays": "mileage"}, "compass-needle": {"points": "direction"}, "speedometer": {"displays": "speed"}}
