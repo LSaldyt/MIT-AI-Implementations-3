@@ -1,7 +1,9 @@
 import json
 from collections import defaultdict, namedtuple
 
-from variable_dictionary import VariableDictionary
+from utils import flatten
+
+#from variable_dictionary import VariableDictionary
 
 class ConceptMap(object):
     def __init__(self, filename):
@@ -23,3 +25,14 @@ class ConceptMap(object):
         elif isinstance(value, dict):
             raise NotImplementedError('Dictionary relations are more complex and not currently supported')
         return value
+
+    def level_keys(self, concept):
+        def recursive_keys(d):
+            if isinstance(d, dict):
+                # [[[..]]] potentially infinitely nested lists
+                nested = [recursive_keys(item) for item in d.values()]
+                return [list(d.keys())] + [list(item) for item in zip(*flatten(nested))]
+            else:
+                return []
+        return [concept] + recursive_keys(self.concepts[concept])
+

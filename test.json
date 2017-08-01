@@ -1,1 +1,2 @@
-{"dashboard": {"has": ["speedometer", "odometer"]}, "compass": {"displays": "direction"}, "hiking": {"requires": "direction"}, "odometer": {"displays": "mileage"}, "compass-needle": {"points": "direction"}, "speedometer": {"displays": "speed"}}
+{"dashboard": {"has": ["speedometer", "odometer"]}, "compass": {"displays": "direction"}, "hiking": {"requires": "direction"}, "odometer": {"displays": "mileage"}, "compass-needle": {"points": "direction"}, "speedometer": {"displays": "speed"},
+"nested" : {"nested2" : {"nested3" : "end"}, "nested22" : {"nested33" : "end"}}}
