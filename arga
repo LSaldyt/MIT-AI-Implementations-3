@@ -6,6 +6,8 @@ def main():
     #print(cmap)
     #print(cmap.relations('speedometer', 'odometer'))
     print(cmap.level_keys('nested'))
+    print(cmap.level_keys('speedometer'))
+    print(cmap.level_keys('odometer'))
 
 if __name__ == '__main__':
     main()

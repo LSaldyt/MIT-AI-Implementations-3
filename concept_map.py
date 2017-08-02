@@ -26,13 +26,19 @@ class ConceptMap(object):
             raise NotImplementedError('Dictionary relations are more complex and not currently supported')
         return value
 
-    def level_keys(self, concept):
-        def recursive_keys(d):
+    def level_key_values(self, concept):
+        def recursive_key_values(d):
             if isinstance(d, dict):
                 # [[[..]]] potentially infinitely nested lists
-                nested = [recursive_keys(item) for item in d.values()]
-                return [list(d.keys())] + [list(item) for item in zip(*flatten(nested))]
+                nested = [recursive_key_values(item) for item in d.values()]
+                return [list(d.items())] + [list(item) for item in zip(*flatten(nested))]
             else:
                 return []
-        return [concept] + recursive_keys(self.concepts[concept])
+        return [[(concept, self.concepts[concept])]] + recursive_key_values(self.concepts[concept])
+
+    def level_keys(self, concept):
+        return [[k for k, v in kvs] for kvs in self.level_key_values(concept)]
+
+    def level_values(self, concept):
+        return [[v for k, v in kvs] for kvs in self.level_key_values(concept)]
 
