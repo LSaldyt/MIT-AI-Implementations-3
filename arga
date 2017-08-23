@@ -8,6 +8,7 @@ def main():
     print(cmap.level_key_values('speedometer'))
     print(cmap.level_key_values('odometer'))
     diff, variables = cmap.difference('speedometer', 'odometer')
+    print(diff)
     for i, subdiff in enumerate(diff):
         print('Level {} : {}'.format(i, subdiff))
     print(variables.variables)

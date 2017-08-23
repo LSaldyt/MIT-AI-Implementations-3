@@ -8,5 +8,5 @@ class VariableDictionary(object):
         return '@{}'.format(self.serial)
 
     def add(self, value):
-        self.variables[self.get_identifier()] = value
         self.serial += 1
+        self.variables[self.get_identifier()] = value

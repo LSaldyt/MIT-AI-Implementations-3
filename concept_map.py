@@ -1,6 +1,7 @@
 import json
 from collections import defaultdict, namedtuple
 from itertools   import zip_longest
+from pprint      import pprint
 
 from utils import flatten
 
@@ -49,26 +50,40 @@ class ConceptMap(object):
         variables = VariableDictionary()
         diff = []
         for A, B in zip_longest(kvsA, kvsB, fillvalue=None):
+            process = lambda l : [(k, None if isinstance(v, dict) else v) for k, v in l]
+            A = process(A)
+            B = process(B)
+            aKeys   = {k for k, v in A}
+            aValues = {v for k, v in A}
+            bKeys   = {k for k, v in B}
+            bValues = {v for k, v in B}
+
+            uniqueKeys   = aKeys.symmetric_difference(bKeys)
+            uniqueValues = aValues.symmetric_difference(bValues)
+            
+            print('unique:')
+            print(uniqueKeys)
+            print(uniqueValues)
+
+            level = []
             for (kA, vA) in A:
                 for (kB, vB) in B:
-                    level = []
-                    if isinstance(vA, dict):
-                        vA = None
-                    if isinstance(vB, dict):
-                        vB = None
                     if kA == kB and vA == vB:
                         level.append((kA, vA))
                     elif kA == kB:
                         variables.add([vA, vB])
-                        level.append((kA, [vA, vB]))
-                    '''
+                        v = variables.get_identifier()
+                        level.append((kA, v))
                     elif vA == vB:
                         variables.add([kA, kB])
-                        level.append(([kA, kB], vA))
+                        v = variables.get_identifier()
+                        level.append((v, vA))
                     else:
-                        variables.add([kA, kB])
-                        variables.add([vA, vB])
-                        level.append(([kA, kB], [vA, vB]))
-                    '''
-                    diff.append(level)
+                        pass
+                if kA in uniqueKeys and \
+                        vA in uniqueValues:
+                    variables.add([(kA, vA)])
+                    v = variables.get_identifier()
+                    level.append(v)
+            diff.append(level)
         return diff, variables
