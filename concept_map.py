@@ -6,6 +6,7 @@ from pprint      import pprint
 from utils import flatten
 
 from variable_dictionary import VariableDictionary
+from frame               import Frame
 
 class ConceptMap(object):
     def __init__(self, filename):
@@ -44,46 +45,36 @@ class ConceptMap(object):
     def level_values(self, concept):
         return [[v for k, v in kvs] for kvs in self.level_key_values(concept)]
 
-    def difference(self, a, b):
-        kvsA = self.level_key_values(a)
-        kvsB = self.level_key_values(b)
-        variables = VariableDictionary()
-        diff = []
-        for A, B in zip_longest(kvsA, kvsB, fillvalue=None):
-            process = lambda l : [(k, None if isinstance(v, dict) else v) for k, v in l]
-            A = process(A)
-            B = process(B)
-            aKeys   = {k for k, v in A}
-            aValues = {v for k, v in A}
-            bKeys   = {k for k, v in B}
-            bValues = {v for k, v in B}
+    def compare_json_elements(self, variables, a, b):
+        if isinstance(a, dict) and isinstance(b, dict):
+            json = dict()
+            # recursive case
+            for kA, vA in a.items():
+                if kA in b:
+                    vB = b[kA]
+                    json[kA] = self.compare_json_elements(variables, vA, vB)
+                else:
+                    print('unmatched: ' + kA)
+            for kB in b:
+                if kB not in a:
+                    print('unmatched: ' + kB)
+        elif isinstance(a, list) and isinstance(b, list):
+            # compare individual elements
+            json = []
+        else:
+            # if unmatching or raw types, compare equal
+            if a == b:
+                json = a
+            else:
+                variables.add([a, b])
+                json = variables.get_identifier()
+        return json
 
-            uniqueKeys   = aKeys.symmetric_difference(bKeys)
-            uniqueValues = aValues.symmetric_difference(bValues)
-            
-            print('unique:')
-            print(uniqueKeys)
-            print(uniqueValues)
+    def create_frame(self, a, b):
+        components = [a, b]
+        variables  = VariableDictionary()
+        aDict      = self.concepts[a]
+        bDict      = self.concepts[b]
+        json       = self.compare_json_elements(variables, aDict, bDict)
 
-            level = []
-            for (kA, vA) in A:
-                for (kB, vB) in B:
-                    if kA == kB and vA == vB:
-                        level.append((kA, vA))
-                    elif kA == kB:
-                        variables.add([vA, vB])
-                        v = variables.get_identifier()
-                        level.append((kA, v))
-                    elif vA == vB:
-                        variables.add([kA, kB])
-                        v = variables.get_identifier()
-                        level.append((v, vA))
-                    else:
-                        pass
-                if kA in uniqueKeys and \
-                        vA in uniqueValues:
-                    variables.add([(kA, vA)])
-                    v = variables.get_identifier()
-                    level.append(v)
-            diff.append(level)
-        return diff, variables
+        return Frame(components, variables, json)

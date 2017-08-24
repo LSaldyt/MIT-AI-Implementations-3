@@ -4,6 +4,9 @@ class VariableDictionary(object):
         self.variables  = dict()
         self.serial     = 0
 
+    def __getitem__(self, key):
+        return self.variables[key]
+
     def get_identifier(self):
         return '@{}'.format(self.serial)
 
