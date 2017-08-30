@@ -10,3 +10,6 @@ class Frame(object):
     def show(self):
         pprint(self.json)
         pprint(self.variables.variables)
+
+    def gen_key(self):
+        return '-'.join(sorted(self.components))
