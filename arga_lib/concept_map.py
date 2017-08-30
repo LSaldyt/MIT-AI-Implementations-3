@@ -3,10 +3,10 @@ from collections import defaultdict, namedtuple
 from itertools   import zip_longest
 from pprint      import pprint
 
-from utils import flatten
+from .utils import flatten
 
-from variable_dictionary import VariableDictionary
-from frame               import Frame
+from .variable_dictionary import VariableDictionary
+from .frame               import Frame
 
 class ConceptMap(object):
     def __init__(self, filename):
