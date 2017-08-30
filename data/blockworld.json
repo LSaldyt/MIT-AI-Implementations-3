@@ -1,8 +1,15 @@
 {
 "a" : { "isa" : "block",
 	"color" : "green",
-	"location" : "left"},
+	"location" : "left",
+        "has" : {
+		"faces" : "6"
+	}},
 "b" : { "isa" : "block",
 	"color" : "blue",
+        "has" : {
+		"faces" : "6",
+		"edges" : "12"
+	},
 	"location" : "right"}
 }
