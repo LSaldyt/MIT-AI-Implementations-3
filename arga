@@ -6,10 +6,6 @@ from pprint import pprint
 def main():
     cmap = InstanceMap('data/test.json')
     pprint(cmap.instances)
-    #print(cmap)
-    #print(cmap.relations('speedometer', 'odometer'))
-    #print(cmap.level_key_values('speedometer'))
-    #print(cmap.level_key_values('odometer'))
 
     frame = cmap.create_frame('speedometer', 'odometer')
     frame.show()

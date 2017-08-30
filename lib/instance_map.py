@@ -18,18 +18,6 @@ class InstanceMap(object):
     def __str__(self):
         return str(self.instances)
 
-    def shared_keys(self, *items):
-        def get_keys (item):
-            return set(self.instances[item].keys())
-        return set.intersection(*(get_keys(item) for item in items))
-
-    def process_value(self, value):
-        if isinstance(value, str):
-            value = [value]
-        elif isinstance(value, dict):
-            raise NotImplementedError('Dictionary relations are more complex and not currently supported')
-        return value
-
     def level_keychains(self, instance):
         def recursive_keychain(d):
             if isinstance(d, dict):
@@ -38,22 +26,6 @@ class InstanceMap(object):
             else:
                 return []
         return recursive_keychain(self.instances[instance])
-
-    def level_key_values(self, instance):
-        def recursive_key_values(d):
-            if isinstance(d, dict):
-                # [[[..]]] potentially infinitely nested lists
-                nested = [recursive_key_values(item) for item in d.values()]
-                return [list(sorted(d.items(), key=lambda t:t[0]))] + [list(item) for item in zip(*flatten(nested))]
-            else:
-                return []
-        return [[(instance, self.instances[instance])]] + recursive_key_values(self.instances[instance])
-
-    def level_keys(self, instance):
-        return [[k for k, v in kvs] for kvs in self.level_key_values(instance)]
-
-    def level_values(self, instance):
-        return [[v for k, v in kvs] for kvs in self.level_key_values(instance)]
 
     def update_item(self, item):
         for keychains in self.level_keychains(item):
