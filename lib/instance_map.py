@@ -7,12 +7,17 @@ from .utils import flatten
 
 from .variable_dictionary import VariableDictionary
 from .frame               import Frame
+from .instance            import Instance
 
 class InstanceMap(object):
     def __init__(self, filename):
         self.instances = defaultdict(dict)
         with open(filename, 'r') as infile:
-            self.instances.update(json.load(infile))
+            instances = json.load(infile)
+            for k, v in instances.items():
+                instances[k] = Instance(k, v)
+
+            self.instances.update(instances)
         self.map = defaultdict(set)
 
     def __str__(self):
