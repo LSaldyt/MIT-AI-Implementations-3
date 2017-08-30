@@ -14,5 +14,8 @@ def main():
     frame = cmap.create_frame('speedometer', 'odometer')
     frame.show()
 
+    cmap = ConceptMap('blockworld.json')
+    pprint(cmap.concepts)
+
 if __name__ == '__main__':
     main()

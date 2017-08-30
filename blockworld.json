@@ -1,0 +1,8 @@
+{
+"a" : { "isa" : "block",
+	"color" : "green",
+	"location" : "left"},
+"b" : { "isa" : "block",
+	"color" : "blue",
+	"location" : "right"}
+}

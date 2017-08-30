@@ -71,6 +71,7 @@ class ConceptMap(object):
         return json
 
     def create_frame(self, a, b):
+        print('Creating frame between objects {} and {}:'.format(a, b))
         components = [a, b]
         variables  = VariableDictionary()
         aDict      = self.concepts[a]
