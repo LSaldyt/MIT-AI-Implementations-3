@@ -9,7 +9,7 @@ from .variable_dictionary import VariableDictionary
 from .frame               import Frame
 from .instance            import Instance
 
-class InstanceMap(object):
+class State(object):
     def __init__(self, filename):
         self.instances = defaultdict(dict)
         with open(filename, 'r') as infile:
@@ -22,6 +22,9 @@ class InstanceMap(object):
 
     def __str__(self):
         return str(self.instances)
+
+    def add(self, name, instance):
+        self.instances[name] = instance
 
     def level_keychains(self, instance):
         def recursive_keychain(d):

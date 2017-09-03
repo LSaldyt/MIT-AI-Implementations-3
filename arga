@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-from lib import InstanceMap, FrameMap
+from lib import State, FrameMap, Event, Memory
 
 from pprint import pprint
 
 def main():
-    imap = InstanceMap('data/test.json')
-    pprint(imap.instances)
+    state = State('data/test.json')
+    pprint(state.instances)
 
-    frame = imap.create_frame('speedometer', 'odometer')
+    frame = state.create_frame('speedometer', 'odometer')
     frame.show()
 
     fmap = FrameMap()
@@ -16,10 +16,16 @@ def main():
     print(fmap.get('odometer-speedometer'))
     print(fmap.get_all('speedometer'))
 
-    imap = InstanceMap('data/blockworld.json')
-    pprint(imap.instances)
-    imap.update_map()
-    pprint(imap.map)
+    state = State('data/blockworld.json')
+    pprint(state.instances)
+    state.update_map()
+    pprint(state.map)
+
+    memory = Memory(state)
+    movement = Event(['a', 'location'], 'middle', 0)
+    memory.add(movement)
+
+    print(memory)
 
 if __name__ == '__main__':
     main()
