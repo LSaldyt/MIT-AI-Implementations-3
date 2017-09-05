@@ -22,8 +22,8 @@ def main():
     pprint(state.map)
 
     memory = Memory(state)
-    movement = Event(['a', 'location'], 'middle', 0)
-    memory.add(movement)
+    memory.add(Event(['a', 'location'], 'middle', 0))
+    memory.add(Event(['a', 'location'], 'right', 1))
 
     print(memory)
 
