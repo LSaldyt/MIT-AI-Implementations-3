@@ -65,7 +65,14 @@ class State(object):
             self.update_item(item)
 
     def compare_json_elements(self, variables, a, b):
-        if isinstance(a, dict) and isinstance(b, dict):
+        aIsInstance = isinstance(a, Instance)
+        bIsInstance = isinstance(b, Instance)
+        aIsDict = isinstance(a, dict)
+        bIsDict = isinstance(b, dict)
+        if (aIsDict and bIsDict) or (aIsInstance and bIsInstance):
+            if aIsInstance:
+                a = a.json
+                b = b.json
             json = dict()
             # recursive case
             for kA, vA in a.items():

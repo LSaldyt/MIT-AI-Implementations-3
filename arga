@@ -11,7 +11,7 @@ def main():
     pprint(state.map)
 
     frame = state.create_frame('speedometer', 'odometer')
-    frame.show()
+    print(frame)
 
     fmap = FrameMap()
     fmap.add(frame)

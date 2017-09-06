@@ -7,9 +7,11 @@ class Frame(object):
         self.variables  = variables
         self.json       = json
 
-    def show(self):
-        pprint(self.json)
-        pprint(self.variables.variables)
+    def __str__(self):
+        return str(self.json) + ', ' + str(self.variables.variables)
+
+    def __repr__(self):
+        return str(self)
 
     def gen_key(self):
         return '-'.join(sorted(self.components))
