@@ -6,6 +6,9 @@ from pprint import pprint
 def main():
     state = State('data/test.json')
     pprint(state.instances)
+    state.update_map()
+    print('State map:')
+    pprint(state.map)
 
     frame = state.create_frame('speedometer', 'odometer')
     frame.show()
@@ -19,6 +22,7 @@ def main():
     state = State('data/blockworld.json')
     pprint(state.instances)
     state.update_map()
+    print('State map:')
     pprint(state.map)
 
     memory = Memory(state)

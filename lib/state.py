@@ -28,7 +28,8 @@ class State(object):
 
     def level_keychains(self, instance):
         def recursive_keychain(d):
-            if isinstance(d, dict):
+            if isinstance(d, Instance):
+                d = d.json
                 return [[[k, *nested] for nested in flatten(recursive_keychain(v))] if isinstance(v, dict) else [[k]] 
                         for k, v in d.items()]
             else:
@@ -41,6 +42,8 @@ class State(object):
                 value = self.instances[item]
                 for key in keychain:
                     value = value[key]
+                if isinstance(value, list):
+                    value = tuple(sorted(value))
                 self.map[value].add((item,) + tuple(keychain))
 
     def update_map(self):
