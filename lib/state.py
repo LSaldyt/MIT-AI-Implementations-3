@@ -3,7 +3,7 @@ from collections import defaultdict, namedtuple
 from itertools   import zip_longest
 from pprint      import pprint
 
-from .utils import flatten
+from .utils import flatten, chains
 
 from .variable_dictionary import VariableDictionary
 from .frame               import Frame
@@ -26,15 +26,24 @@ class State(object):
     def add(self, name, instance):
         self.instances[name] = instance
 
-    def level_keychains(self, instance):
-        def recursive_keychain(d):
-            if isinstance(d, Instance):
+    def _subchains(self, k, v):
+        if isinstance(v, dict):
+            return [[k, *chain] for nested in flatten(self.recursive_keychain(v)) for chain in chains(nested)]
+        else:
+            return [[k]] 
+
+    def recursive_keychain(self, d):
+        isInstance = isinstance(d, Instance)
+        isDict     = isinstance(d, dict)
+        if isInstance or isDict:
+            if isInstance:
                 d = d.json
-                return [[[k, *nested] for nested in flatten(recursive_keychain(v))] if isinstance(v, dict) else [[k]] 
-                        for k, v in d.items()]
-            else:
-                return []
-        return recursive_keychain(self.instances[instance])
+            return [self._subchains(k, v) for k, v in d.items()]
+        else:
+            return []
+
+    def level_keychains(self, instance):
+        return self.recursive_keychain(self.instances[instance])
 
     def update_item(self, item):
         for keychains in self.level_keychains(item):
@@ -44,7 +53,12 @@ class State(object):
                     value = value[key]
                 if isinstance(value, list):
                     value = tuple(sorted(value))
+                if isinstance(value, dict) or isinstance(value, defaultdict):
+                    value = tuple(sorted(value.items()))
                 self.map[value].add((item,) + tuple(keychain))
+
+                keychain = tuple(keychain)
+                self.map[keychain].add((item,))
 
     def update_map(self):
         for item in self.instances:
