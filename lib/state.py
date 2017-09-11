@@ -19,6 +19,7 @@ class State(object):
 
             self.instances.update(instances)
         self.map = defaultdict(set)
+        self.keymap = defaultdict(set)
 
     def __str__(self):
         return str(self.instances)
@@ -51,14 +52,18 @@ class State(object):
                 value = self.instances[item]
                 for key in keychain:
                     value = value[key]
+                for i, key in enumerate(keychain):
+                    self.keymap[key].add((tuple([item] + keychain), i+1))
                 if isinstance(value, list):
                     value = tuple(sorted(value))
                 if isinstance(value, dict) or isinstance(value, defaultdict):
                     value = tuple(sorted(value.items()))
-                self.map[value].add((item,) + tuple(keychain))
+                keychain = [item] + keychain
 
-                keychain = tuple(keychain)
-                self.map[keychain].add((item,))
+                for i in range(len(keychain)):
+                    if i != 0:
+                        self.map[tuple(keychain[i:] + [value])].add(tuple(keychain))
+                self.map[value].add(tuple(keychain))
 
     def update_map(self):
         for item in self.instances:

@@ -1,7 +1,9 @@
 {
 "a" : { "isa" : "block",
 	"color" : "green",
-	"location" : "left",
+	"location" : {
+		"under" : "c"
+	},
         "has" : {
 		"faces" : "6"
 	}},
@@ -11,5 +13,15 @@
 		"faces" : "6",
 		"edges" : "12"
 	},
-	"location" : "right"}
+	"location" : {}},
+"c" : { "isa" : "pyramid",
+	"color" : "red",
+	"has" : {
+		"faces" : "5",
+		"edges" : "8"
+		},
+	"location" : {
+		"on-top" : "a"
+	}
+	}
 }

@@ -4,11 +4,14 @@ from lib import State, FrameMap, Event, Memory
 from pprint import pprint
 
 def main():
+    '''
     state = State('data/test.json')
     pprint(state.instances)
     state.update_map()
     print('State map:')
     pprint(state.map)
+    print('Associations for direction')
+    print(state.map['direction'])
 
     frame = state.create_frame('speedometer', 'odometer')
     print(frame)
@@ -18,12 +21,15 @@ def main():
 
     print(fmap.get('odometer-speedometer'))
     print(fmap.get_all('speedometer'))
+    '''
 
     state = State('data/blockworld.json')
     pprint(state.instances)
     state.update_map()
     print('State map:')
     pprint(state.map)
+    print('Key map:')
+    pprint(state.keymap)
 
     memory = Memory(state)
     memory.add(Event(['a', 'location'], 'middle', 0))
