@@ -18,8 +18,8 @@ class State(object):
                 instances[k] = Instance(k, v)
 
             self.instances.update(instances)
-        self.map = defaultdict(set)
-        self.keymap = defaultdict(set)
+        self.map      = defaultdict(set) # chain : chain
+        self.keymap   = defaultdict(set) # string : (chain, int) # int is index
 
     def __str__(self):
         return str(self.instances)
@@ -110,3 +110,8 @@ class State(object):
         json       = self.compare_json_elements(variables, aDict, bDict)
 
         return Frame(components, variables, json)
+
+    def select(self, keys):
+        process = lambda s : {chain[0] for chain in s}
+        sets = [process(self.map[key]) for key in keys]
+        return set.intersection(*sets)

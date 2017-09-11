@@ -31,6 +31,9 @@ def main():
     print('Key map:')
     pprint(state.keymap)
 
+    print(state.select(['red', 'pyramid']))
+    print(state.select([('isa', 'pyramid'), ('color', 'red')]))
+
     memory = Memory(state)
     memory.add(Event(['a', 'location'], 'middle', 0))
     memory.add(Event(['a', 'location'], 'right', 1))
