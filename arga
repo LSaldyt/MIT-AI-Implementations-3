@@ -35,9 +35,7 @@ def main():
     print(state.select([('isa', 'pyramid'), ('color', 'red')]))
 
     memory = Memory(state)
-    memory.add(Event(['a', 'location'], 'middle', 0))
-    memory.add(Event(['a', 'location'], 'right', 1))
-
+    memory.act(['red', 'pyramid'], ['location'], {'on' : 'a'})
     print(memory)
 
 if __name__ == '__main__':

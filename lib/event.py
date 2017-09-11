@@ -7,7 +7,7 @@ class Event(object):
         self.original    = None
 
     def __str__(self):
-        return ':'.join(self.keychain) + '->' + self.replacement + '; t=' + str(self.time)
+        return ':'.join(self.keychain) + '->' + str(self.replacement) + '; t=' + str(self.time)
 
     def __repr__(self):
         return str(self)
