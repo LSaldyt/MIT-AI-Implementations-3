@@ -1,0 +1,15 @@
+{"apple" : {
+	"isa" : "fruit",
+	"origin" : "tree",
+	"has" : {
+		"body" : { 
+			"is" : "round",
+			"color" : ["red", "green"]
+		},
+		"stem" : {
+			"color" : "brown"
+		}
+			
+	}
+
+}}

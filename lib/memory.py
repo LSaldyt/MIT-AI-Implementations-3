@@ -9,7 +9,7 @@ class Memory(object):
         self.time     = 0.0
 
     def __str__(self):
-        return str(self.eventmap) + ', ' + str(self.initial)
+        return str(self.eventmap) #+ ', ' + str(self.initial)
 
     def add(self, event):
         self.eventmap[event.time].add(event)
@@ -18,6 +18,7 @@ class Memory(object):
 
     def act(self, keys, subchain, value):
         items = self.initial.select(keys)
+        print('Acting on {}'.format(items))
         for item in items:
             keychain = tuple([item] + subchain)
             print(keychain)

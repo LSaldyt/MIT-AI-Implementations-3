@@ -23,6 +23,7 @@ def main():
     print(fmap.get_all('speedometer'))
     '''
 
+    '''
     state = State('data/blockworld.json')
     pprint(state.instances)
     state.update_map()
@@ -34,9 +35,31 @@ def main():
     print(state.select(['red', 'pyramid']))
     print(state.select([('isa', 'pyramid'), ('color', 'red')]))
 
+    print('_' * 80)
+    print('Beginning memory tests:')
+    print('_' * 80)
+    print('\n')
+
     memory = Memory(state)
-    memory.act(['red', 'pyramid'], ['location'], {'on' : 'a'})
+    memory.act(['red', 'pyramid'], ['location'], {'on' : 'b'})
     print(memory)
+    memory.act(['red', 'pyramid'], ['location'], {})
+    print(memory)
+    '''
+
+    state = State('data/concept_test.json')
+    print(state)
+    print(state.map)
+
+    '''
+    state = State('data/copycat_brainstorm.json')
+    print(state)
+    memory = Memory(state)
+    memory.add(Event(['start'], 'abc', 0))
+    memory.add(Event(['end'], 'abd', 0))
+    memory.add(Event(['example-start'], 'ijk', 1))
+    print(memory)
+    '''
 
 if __name__ == '__main__':
     main()

@@ -1,0 +1,70 @@
+{
+	"successor" : 
+	{
+		"ex" : 
+		{
+			"@a" : 
+			{
+				"successor" : "@b"
+			}
+		},
+
+		"instances" : 
+		[
+			{
+				"@a" : "b",
+				"@b" : "a"
+			},
+			{
+				"@a" : "c",
+				"@b" : "b"
+			}
+		],
+
+		"opposite" : "predecessor"
+	},
+
+	"predecessor" : 
+	{
+		"ex" : 
+		{
+			"@a" : 
+			{
+				"predecessor" : "@b"
+			}
+		},
+
+		"instances" : 
+		[
+			{
+				"@a" : "a",
+				"@b" : "b"
+			},
+			{
+				"@a" : "b",
+				"@b" : "c"
+			}
+		],
+
+		"opposite" : "successor"
+	},
+
+	"opposite" : 
+	{
+		"ex" :
+		{
+			"@a" : 
+			{
+				"opposite" : "@b"
+			}
+		},
+		"instances" : 
+		[
+			{
+				"@a" : "successor",
+				"@b" : "predecessor"
+			}
+		]
+
+	}
+}

@@ -2,7 +2,6 @@
 "a" : { "isa" : "block",
 	"color" : "green",
 	"location" : {
-		"under" : "c"
 	},
         "has" : {
 		"faces" : "6"
