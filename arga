@@ -23,7 +23,6 @@ def main():
     print(fmap.get_all('speedometer'))
     '''
 
-    '''
     state = State('data/blockworld.json')
     pprint(state.instances)
     state.update_map()
@@ -45,11 +44,12 @@ def main():
     print(memory)
     memory.act(['red', 'pyramid'], ['location'], {})
     print(memory)
-    '''
 
+    '''
     state = State('data/concept_test.json')
     print(state)
     print(state.map)
+    '''
 
     '''
     state = State('data/copycat_brainstorm.json')
